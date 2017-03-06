@@ -8,4 +8,6 @@
 2. 管理器：StatusLayoutManager --- 管理状态页面的切换。
 
 效果图如下：
+
+
 ![](https://github.com/aprz512/StatusLayout/blob/master/statuslayout.gif)
