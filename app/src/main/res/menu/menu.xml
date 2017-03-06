@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_content"
+        android:title="content"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_loading"
+        android:title="loading"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_empty"
+        android:title="empty"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_error"
+        android:title="error"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_neterror"
+        android:title="neterror"
+        app:showAsAction="never"/>
+
+</menu>
