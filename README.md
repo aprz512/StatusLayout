@@ -6,3 +6,6 @@
 1. 状态页面：StatusLayout ---- 包括 空页面/数据页面/错误页面/加载页面/网络错误页面等等。
 
 2. 管理器：StatusLayoutManager --- 管理状态页面的切换。
+
+效果图如下：
+![](https://github.com/aprz512/StatusLayout/blob/master/statuslayout.gif)
