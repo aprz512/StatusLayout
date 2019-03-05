@@ -6,6 +6,7 @@
 状态页面：StatusLayout ---- 包括 空页面/数据页面/错误页面/加载页面/网络错误页面等等。
 
 使用：
+```xml
     <com.aprz.statuslayout.status.StatusLayout
         android:id="@+id/sl_main"
         app:empty_layout="@layout/standard_loading"
@@ -19,6 +20,7 @@
             android:text="内容页面" />
 
     </com.aprz.statuslayout.status.StatusLayout>
+```
 
 效果图如下：
 
