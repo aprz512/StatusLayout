@@ -1,37 +1,33 @@
 package com.aprz.statuslayout;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 
-import com.aprz.statuslayout.status.StatusLayoutManager;
+import com.aprz.statuslayout.status.StatusLayout;
 
 public class MainActivity extends BaseActivity {
 
-    private StatusLayoutManager mLayoutManager;
+    private StatusLayout mStatusLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mLayoutManager = new StatusLayoutManager.Builder(this)
-                .setContentViewLayoutId(R.layout.activity_main_content)
-                .setEmptyViewLayoutId(R.layout.standard_empty)
-                .setLoadingViewLayoutId(R.layout.standard_loading)
-                .setErrorViewLayoutId(R.layout.standard_error)
-                .setNetErrorViewLayoutId(R.layout.standard_network_error)
-                .setInitListener(this)
+        mStatusLayout = findViewById(R.id.sl_main);
+        mStatusLayout.setEmptyLayoutId(R.layout.standard_empty)
+                .setLoadingLayoutId(R.layout.standard_loading)
+                .setErrorLayoutId(R.layout.standard_error)
+                .setNetworkErrorLayoutId(R.layout.standard_network_error)
                 .build();
-        LinearLayout mainLayout = (LinearLayout) findViewById(R.id.ll_root);
-        mainLayout.addView(mLayoutManager.getStatusLayout());
-        mLayoutManager.showLoadingView();
+        mStatusLayout.setInitListener(this);
     }
 
     @Override
@@ -48,19 +44,19 @@ public class MainActivity extends BaseActivity {
         int itemId = item.getItemId();
         switch (itemId) {
             case R.id.action_content:
-                mLayoutManager.showContentView();
+                mStatusLayout.showContentView();
                 break;
             case R.id.action_empty:
-                mLayoutManager.showEmptyView();
+                mStatusLayout.showEmptyView();
                 break;
             case R.id.action_loading:
-                mLayoutManager.showLoadingView();
+                mStatusLayout.showLoadingView();
                 break;
             case R.id.action_error:
-                mLayoutManager.showErrorView();
+                mStatusLayout.showErrorView();
                 break;
             case R.id.action_neterror:
-                mLayoutManager.showNetworkErrorView();
+                mStatusLayout.showNetworkErrorView();
                 break;
             default:
                 return super.onOptionsItemSelected(item);
@@ -73,11 +69,9 @@ public class MainActivity extends BaseActivity {
     public void initErrorView(View errorView) {
         super.initErrorView(errorView);
         View retryButton = errorView.findViewById(R.id.btn_retry);
-        retryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mLayoutManager.showLoadingView();
-            }
+        retryButton.setOnClickListener(v -> {
+            mStatusLayout.showLoadingView();
+            new Handler().postDelayed(() -> mStatusLayout.showContentView(), 3000);
         });
     }
 }
