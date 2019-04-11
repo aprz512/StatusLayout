@@ -95,19 +95,20 @@ public class StatusView extends FrameLayout {
         }
 
         // 首先，如果新的状态页面与旧的不一致，移除旧的状态页面
-        // 然后将新的页面添加到 parent 里面
         if (cacheView != mCurrentStatusView) {
             if (mCurrentStatusView != null && indexOfChild(mCurrentStatusView) >= 0) {
                 removeView(mCurrentStatusView);
             }
-            int indexOfChild = this.indexOfChild(cacheView);
-            if (indexOfChild < 0) {
-                // 不在 StatusLayout 里面
-                addView(cacheView);
-            } else if (indexOfChild != getChildCount() - 1) {
-                // 不在最上层
-                cacheView.bringToFront();
-            }
+        }
+
+        // 然后将新的页面添加到 parent 里面
+        int indexOfChild = this.indexOfChild(cacheView);
+        if (indexOfChild < 0) {
+            // 不在 StatusLayout 里面
+            addView(cacheView);
+        } else if (indexOfChild != getChildCount() - 1) {
+            // 不在最上层
+            cacheView.bringToFront();
         }
 
         if (mHideIfShowStatus) {
