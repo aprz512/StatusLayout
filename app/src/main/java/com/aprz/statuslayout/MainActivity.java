@@ -1,17 +1,17 @@
 package com.aprz.statuslayout;
 
 import android.os.Bundle;
-import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
-import com.aprz.statuslayout.status.StatusLayout;
+import com.aprz.statuslayout.manager.StatusView;
+import com.aprz.statuslayout.manager.StatusViewBuilder;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends AppCompatActivity {
 
-    private StatusLayout mStatusLayout;
+    private StatusView mStatusView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,13 +21,13 @@ public class MainActivity extends BaseActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mStatusLayout = findViewById(R.id.sl_main);
-        mStatusLayout.setEmptyLayoutId(R.layout.standard_empty)
-                .setLoadingLayoutId(R.layout.standard_loading)
-                .setErrorLayoutId(R.layout.standard_error)
-                .setNetworkErrorLayoutId(R.layout.standard_network_error)
-                .build();
-        mStatusLayout.setInitListener(this);
+        mStatusView = new StatusViewBuilder()
+                .empty(new EmptyTypeView())
+                .error(new ErrorTypeView())
+                .networkError(new NetworkErrorTypeView())
+                .loading(new LoadingTypeView())
+                .hideContentIfShowStatus(true)
+                .build(findViewById(R.id.content));
     }
 
     @Override
@@ -44,19 +44,19 @@ public class MainActivity extends BaseActivity {
         int itemId = item.getItemId();
         switch (itemId) {
             case R.id.action_content:
-                mStatusLayout.showContentView();
+                mStatusView.showContentView();
                 break;
             case R.id.action_empty:
-                mStatusLayout.showEmptyView();
+                mStatusView.showEmptyView();
                 break;
             case R.id.action_loading:
-                mStatusLayout.showLoadingView();
+                mStatusView.showLoadingView();
                 break;
             case R.id.action_error:
-                mStatusLayout.showErrorView();
+                mStatusView.showErrorView();
                 break;
             case R.id.action_neterror:
-                mStatusLayout.showNetworkErrorView();
+                mStatusView.showNetworkErrorView();
                 break;
             default:
                 return super.onOptionsItemSelected(item);
@@ -65,13 +65,4 @@ public class MainActivity extends BaseActivity {
         return true;
     }
 
-    @Override
-    public void initErrorView(View errorView) {
-        super.initErrorView(errorView);
-        View retryButton = errorView.findViewById(R.id.btn_retry);
-        retryButton.setOnClickListener(v -> {
-            mStatusLayout.showLoadingView();
-            new Handler().postDelayed(() -> mStatusLayout.showContentView(), 3000);
-        });
-    }
 }

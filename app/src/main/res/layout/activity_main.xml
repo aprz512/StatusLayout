@@ -16,17 +16,13 @@
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-    <com.aprz.statuslayout.status.StatusLayout
-        android:id="@+id/sl_main"
+    <TextView
+        android:id="@+id/content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="内容页面" />
-
-    </com.aprz.statuslayout.status.StatusLayout>
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="内容页面"
+        android:textSize="30dp" />
 
 </LinearLayout>
