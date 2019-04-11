@@ -11,10 +11,9 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 /**
- * Created by lyl
+ * @author by lyl
  * ---
  * 各种状态页面的容器
- *
  * @since 10点24分 2019年4月11日
  */
 public class StatusView extends FrameLayout {
@@ -39,7 +38,7 @@ public class StatusView extends FrameLayout {
         super(context, attrs, defStyleAttr);
     }
 
-    public StatusView setContenView(@NonNull View content, boolean hideIfShowStatus) {
+    public StatusView setContentView(@NonNull View content, boolean hideIfShowStatus) {
         mContent = content;
         mHideIfShowStatus = hideIfShowStatus;
         addView(content);

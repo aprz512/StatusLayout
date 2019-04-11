@@ -66,7 +66,7 @@ public class StatusViewBuilder {
                 new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
                         FrameLayout.LayoutParams.MATCH_PARENT);
         mContentView.setLayoutParams(layoutParams);
-        wrapper.setContenView(mContentView, mHideIfShowStatus)
+        wrapper.setContentView(mContentView, mHideIfShowStatus)
                 .setEmpty(mEmptyAdapter)
                 .setError(mErrorAdapter)
                 .setLoading(mLoadingAdapter)
