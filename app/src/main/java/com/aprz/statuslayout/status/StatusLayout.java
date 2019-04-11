@@ -41,7 +41,6 @@ public class StatusLayout extends FrameLayout {
 
     private OnStatusLayoutInitListener mInitListener;
 
-
     public StatusLayout(Context context) {
         this(context, null);
     }
@@ -67,32 +66,60 @@ public class StatusLayout extends FrameLayout {
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        initStatusView();
+        build();
     }
 
+    /**
+     * 需要将对应的 viewStub 设置为 null，
+     * 因为布局只会加载一次，加载完之后，就不会再重新加载了，
+     * 想要替换布局，需要将对应的元素置空
+     *
+     * @param emptyLayoutId 布局id
+     * @return this
+     */
     public StatusLayout setEmptyLayoutId(int emptyLayoutId) {
         mEmptyLayoutId = emptyLayoutId;
+        removeIfExist(EMPTY);
+        removeView(mEmptyViewStub);
+        mEmptyViewStub = null;
         return this;
     }
 
     public StatusLayout setErrorLayoutId(int errorLayoutId) {
         mErrorLayoutId = errorLayoutId;
+        removeIfExist(ERROR);
+        removeView(mErrorViewStub);
+        mErrorViewStub = null;
         return this;
     }
 
     public StatusLayout setNetworkErrorLayoutId(int networkErrorLayoutId) {
         mNetworkErrorLayoutId = networkErrorLayoutId;
+        removeIfExist(NETWORK_ERROR);
+        removeView(mNetworkErrorViewStub);
+        mNetworkErrorViewStub = null;
         return this;
     }
 
     public StatusLayout setLoadingLayoutId(int loadingLayoutId) {
         mLoadingLayoutId = loadingLayoutId;
+        removeIfExist(LOADING);
+        removeView(mLoadingViewStub);
+        mLoadingViewStub = null;
         return this;
     }
 
+    private void removeIfExist(int key) {
+        View view = mLayoutSparseArray.get(key);
+        if (view != null) {
+            mLayoutSparseArray.delete(key);
+            removeView(view);
+        }
+    }
+
     /**
-     * 该方法用于手动设置状态页面，而非在xml中固定
-     * 需要与 setXXXLayoutId 方法一起使用
+     * 该方法用于初始化布局，必须调用
+     * 调用 setXXXLayoutId 方法之后，必须调用该方法
      */
     public void build() {
         if (mErrorViewStub != null) {
