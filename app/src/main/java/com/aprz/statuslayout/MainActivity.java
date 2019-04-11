@@ -1,5 +1,6 @@
 package com.aprz.statuslayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -29,6 +30,11 @@ public class MainActivity extends AppCompatActivity {
                 .networkError(new NetworkErrorTypeView())
                 .loading(new LoadingTypeView())
                 .build();
+
+        findViewById(R.id.btn)
+                .setOnClickListener(v -> {
+                    startActivity(new Intent(this, GridActivity.class));
+                });
     }
 
     @Override

@@ -16,13 +16,26 @@
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-    <TextView
+    <LinearLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="内容页面"
-        android:textSize="30dp" />
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="内容页面"
+            android:textSize="30dp" />
+
+        <Button
+            android:id="@+id/btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
 
 </LinearLayout>
