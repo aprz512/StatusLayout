@@ -38,7 +38,7 @@ public class StatusView extends FrameLayout {
         super(context, attrs, defStyleAttr);
     }
 
-    public StatusView setContentView(@NonNull View content, boolean hideIfShowStatus) {
+    public StatusView setContent(@NonNull View content, boolean hideIfShowStatus) {
         mContent = content;
         mHideIfShowStatus = hideIfShowStatus;
         addView(content);

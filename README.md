@@ -33,7 +33,7 @@ public class EmptyTypeView implements StatusTypeView {
 }
 
 StatusView mStatusView = new StatusViewBuilder()
-                 .target(findViewById(R.id.content))
+                 .replace(findViewById(R.id.content))
                  .hideContentIfShowStatus(true)
                  .empty(new EmptyTypeView())
                  .error(new ErrorTypeView())

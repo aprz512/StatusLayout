@@ -20,7 +20,7 @@ public class StatusViewBuilder {
     private boolean mHideIfShowStatus;
     private View mContentView;
 
-    public StatusViewBuilder target(View target) {
+    public StatusViewBuilder replace(View target) {
         mContentView = target;
         return this;
     }
@@ -62,11 +62,10 @@ public class StatusViewBuilder {
             parent.removeView(mContentView);
             parent.addView(wrapper, index);
         }
-        FrameLayout.LayoutParams layoutParams =
-                new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
-                        FrameLayout.LayoutParams.MATCH_PARENT);
-        mContentView.setLayoutParams(layoutParams);
-        wrapper.setContentView(mContentView, mHideIfShowStatus)
+        mContentView.setLayoutParams(new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.MATCH_PARENT));
+        wrapper.setContent(mContentView, mHideIfShowStatus)
                 .setEmpty(mEmptyAdapter)
                 .setError(mErrorAdapter)
                 .setLoading(mLoadingAdapter)
