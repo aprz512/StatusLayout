@@ -33,12 +33,13 @@ public class EmptyTypeView implements StatusTypeView {
 }
 
 StatusView mStatusView = new StatusViewBuilder()
-                .empty(new EmptyTypeView())
-                .error(new ErrorTypeView())
-                .networkError(new NetworkErrorTypeView())
-                .loading(new LoadingTypeView())
-                .hideContentIfShowStatus(true)
-                .build(findViewById(R.id.content));
+                 .target(findViewById(R.id.content))
+                 .hideContentIfShowStatus(true)
+                 .empty(new EmptyTypeView())
+                 .error(new ErrorTypeView())
+                 .networkError(new NetworkErrorTypeView())
+                 .loading(new LoadingTypeView())
+                 .build();
 ```
 
 效果图如下：

@@ -1,6 +1,8 @@
 package com.aprz.statuslayout.manager;
 
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 /**
  * @author by liyunlei
@@ -16,6 +18,12 @@ public class StatusViewBuilder {
     private StatusTypeView mErrorAdapter;
     private StatusTypeView mNetworkErrorAdapter;
     private boolean mHideIfShowStatus;
+    private View mContentView;
+
+    public StatusViewBuilder target(View target) {
+        mContentView = target;
+        return this;
+    }
 
     public StatusViewBuilder empty(StatusTypeView emptyAdapter) {
         mEmptyAdapter = emptyAdapter;
@@ -42,27 +50,27 @@ public class StatusViewBuilder {
         return this;
     }
 
-    public StatusView build(View target) {
-        return StatusManager.inject(target, this);
-    }
-
-    public StatusTypeView getEmptyAdapter() {
-        return mEmptyAdapter;
-    }
-
-    public StatusTypeView getLoadingAdapter() {
-        return mLoadingAdapter;
-    }
-
-    public StatusTypeView getErrorAdapter() {
-        return mErrorAdapter;
-    }
-
-    public StatusTypeView getNetworkErrorAdapter() {
-        return mNetworkErrorAdapter;
-    }
-
-    public boolean isHideIfShowStatus() {
-        return mHideIfShowStatus;
+    public StatusView build() {
+        StatusView wrapper = new StatusView(mContentView.getContext());
+        ViewGroup.LayoutParams lp = mContentView.getLayoutParams();
+        if (lp != null) {
+            wrapper.setLayoutParams(lp);
+        }
+        if (mContentView.getParent() != null) {
+            ViewGroup parent = (ViewGroup) mContentView.getParent();
+            int index = parent.indexOfChild(mContentView);
+            parent.removeView(mContentView);
+            parent.addView(wrapper, index);
+        }
+        FrameLayout.LayoutParams layoutParams =
+                new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
+                        FrameLayout.LayoutParams.MATCH_PARENT);
+        mContentView.setLayoutParams(layoutParams);
+        wrapper.setContenView(mContentView, mHideIfShowStatus)
+                .setEmpty(mEmptyAdapter)
+                .setError(mErrorAdapter)
+                .setLoading(mLoadingAdapter)
+                .setNetworkError(mNetworkErrorAdapter);
+        return wrapper;
     }
 }
