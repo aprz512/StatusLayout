@@ -22,6 +22,25 @@
     </com.aprz.statuslayout.status.StatusLayout>
 ```
 
+新增使用方式：
+```java
+
+public class EmptyTypeView implements StatusTypeView {
+    @Override
+    public View onCreateView(LayoutInflater layoutInflater, StatusView parent) {
+        return layoutInflater.inflate(R.layout.standard_empty, parent, false);
+    }
+}
+
+StatusView mStatusView = new StatusViewBuilder()
+                .empty(new EmptyTypeView())
+                .error(new ErrorTypeView())
+                .networkError(new NetworkErrorTypeView())
+                .loading(new LoadingTypeView())
+                .hideContentIfShowStatus(true)
+                .build(findViewById(R.id.content));
+```
+
 效果图如下：
 
 ![](https://github.com/aprz512/StatusLayout/blob/master/statuslayout.gif)
